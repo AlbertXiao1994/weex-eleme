@@ -1,5 +1,8 @@
+import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import Rating from '@/page/rating/rating.vue'
+import Seller from '@/page/seller/seller'
+import Goods from '@/page/goods/goods.vue'
 
 Vue.use(Router)
 
@@ -7,8 +10,19 @@ module.exports = new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      redirect: Goods
+    },
+    {
+      path: '/goods',
+      component: Goods
+    },
+    {
+      path: '/seller',
+      component: Seller
+    },
+    {
+      path: '/rating',
+      component: Rating
     }
   ]
 })
