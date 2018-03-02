@@ -2,12 +2,18 @@
   <div class="wrapper">
     <image :src="logo" class="logo" />
     <text class="greeting">The environment is ready!</text>
+    <m-header></m-header>
     <router-view/>
   </div>
 </template>
 
 <script>
+import MHeader from '@/components/header/header.vue'
+
 export default {
+  components: {
+    MHeader
+  },
   name: 'App',
   data () {
     return {
