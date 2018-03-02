@@ -14,6 +14,7 @@ npm-debug.log*
 # cache files
 .DS_Store
 .npm
+.temp
 
 # middle compile files
 /src/sprites/*
