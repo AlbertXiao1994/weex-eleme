@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import Router from 'vue-router'
 import Rating from '@/page/rating/rating.vue'
 import Seller from '@/page/seller/seller'
@@ -10,7 +9,7 @@ module.exports = new Router({
   routes: [
     {
       path: '/',
-      redirect: Goods
+      redirect: '/goods'
     },
     {
       path: '/goods',
