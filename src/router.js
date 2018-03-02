@@ -1,6 +1,6 @@
 import Router from 'vue-router'
 import Rating from '@/page/rating/rating.vue'
-import Seller from '@/page/seller/seller'
+import Seller from '@/page/seller/seller.vue'
 import Goods from '@/page/goods/goods.vue'
 
 Vue.use(Router)
