@@ -15,6 +15,7 @@ npm-debug.log*
 .DS_Store
 .npm
 .temp
+.weex_tmp
 
 # middle compile files
 /src/sprites/*
