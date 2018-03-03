@@ -20,10 +20,14 @@
         </div>
       </div>
     </div>
+    <!-- 公告 -->
+    <div class="bulletin" @click="showMore">
+      <text class="bulletin-icon"></text><text class="bulletin-text">{{ msg.bulletin }}</text>
+      <text class="icon icon-keyboard_arrow_right"></text>
+    </div>
     <!-- 其他 -->
     <div class="supports-count" v-if="msg.supports" @click="showMore">
-      <text class="count">{{ msg.supports.length }}个</text>
-      <text class="iconfont iconfont-keyboard_arrow_right">&#xe77a;</text>
+      <text class="count iconfont iconfont-keyboard_arrow_right">{{ msg.supports.length }}个&#xe77a;</text>
     </div>
     <div class="background">
       <image :src="msg.avatar" style="width: 100%;height: 268px"></image>
@@ -136,13 +140,13 @@ export default {
 .supports-count {
   position: absolute;
   right: 12px;
-  bottom: 23px;
+  bottom: 46px;
   width: 50px;
   height: 24px;
-  padding: 7px 8px;
   border-radius: 12px;
   background-color: rgba(0,0,0,0.2);
   font-size: 0;
+  justify-content: center;
   align-items: center;
 }
 .count {
@@ -152,7 +156,6 @@ export default {
 }
 .iconfont-keyboard_arrow_right {
   font-size: 10px;
-  /* margin-left: 2px; */
   color: #fff;
 }
 .bulletin {
@@ -179,12 +182,6 @@ export default {
   /* background-image: url('./bulletin@2x.png'); */
   background-size: 100% 100%;
 }
-/* .icon-keyboard_arrow_right {
-  position: absolute;
-  top: 7px;
-  right: 12px;
-  font-size: 10px;
-} */
 .background {
   position: absolute;
   left: 0;
