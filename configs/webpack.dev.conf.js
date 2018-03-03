@@ -161,7 +161,7 @@ const devWebpackConfig = webpackMerge(commonConfig[0], {
         fs.readFile('./data.json', 'utf8', function (err, data) {
           if (err) throw err
           let info = JSON.parse(data)
-          if (data[req.params.apiName]) {
+          if (info[req.params.apiName]) {
             res.json(info[req.params.apiName])  
           }
           else {
