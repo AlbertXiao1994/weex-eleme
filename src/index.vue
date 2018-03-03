@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <m-header></m-header>
+    <m-header :msg="seller"></m-header>
     <tab-bar></tab-bar>
     <router-view/>
   </div>
@@ -9,15 +9,30 @@
 <script>
 import MHeader from '@/components/header/header.vue'
 import TabBar from '@/components/tab-bar/tab-bar.vue'
+import get from '@/assets/js/util'
+
 export default {
   components: {
     MHeader,
     TabBar
   },
-  name: 'App',
+  created () {
+    this.getSeller()
+  },
   data () {
     return {
-      logo: 'https://gw.alicdn.com/tfs/TB1yopEdgoQMeJjy1XaXXcSsFXa-640-302.png'
+      seller: {}
+    }
+  },
+  methods: {
+    getSeller () {
+      get('/api/seller', (res) => {
+        if (res.ok) {
+          this.seller = res.data
+        } else {
+          console.log('request failed')
+        }
+      })
     }
   }
 }
