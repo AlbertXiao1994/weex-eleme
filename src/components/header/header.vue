@@ -3,67 +3,19 @@
     <div class="header-wrapper">
       <!-- 商家头像 -->
       <div class="avatar">
-        <img :src="msg.avatar">
+        <image class="avatarImg" :src="msg.avatar"></image>
       </div>
-      <!-- 详细信息 -->
-      <div class="detail">
-        <div class="name">
-          <span class="brand"></span>
-          <span>{{ msg.name }}</span>
-        </div>
-        <div class="description">{{ msg.description }}/{{ msg.deliveryTime }}分钟</div>
-        <div class="supports" v-if="msg.supports">
-          <span class="spt-icon"></span>
-          <span class="spt-des">{{ msg.supports[0].description }}</span>
-        </div>
-        <div class="supports-count" v-if="msg.supports" @click="showMore">
-          <span class="count">{{ msg.supports.length }}个</span>
-          <span class="icon icon-keyboard_arrow_right"></span>
-        </div>
-      </div>
-      <!-- 公告 -->
-      <div class="bulletin" @click="showMore">
-        <span class="bulletin-icon"></span><span class="bulletin-text">{{ msg.bulletin }}</span>
-        <span class="icon icon-keyboard_arrow_right"></span>
-      </div>
-      <div class="background">
-        <img :src="msg.avatar" width="100%" height="100%">
-      </div>
-    </div>
-    <div class="more" v-if="isShow">
-        <div class="more-wrapper clearfix">
-          <div class="more-main">
-            <h1 class="name">{{ msg.name }}</h1>
-            <div class="star-wrapper">
-              <star :score="msg.score"></star>
-            </div>
-            <div class="title">
-              <div class="line"></div>
-              <div class="text">优惠信息</div>
-              <div class="line"></div>
-            </div>
-            <ul class="supports-info" v-if="msg.supports">
-              <li class="info-item" v-for="(item, index) in msg.supports" :key={index}>
-                <!-- <span class="icon" :class="classMap[item.type]"></span> -->
-                <icon :type="item.type"></icon>
-                <span class="text">{{ item.description }}</span>
-              </li>
-            </ul>
-            <div class="title">
-              <div class="line"></div>
-              <div class="text">商家公告</div>
-              <div class="line"></div>
-            </div>
-            <div class="bulletin-content">{{ msg.bulletin }}</div>
-          </div>
-        </div>
-        <div class="icon-close" @click="closeMore"></div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    msg: {
+      type: Object
+    }
+  },
   methods: {
   }
 }
@@ -83,19 +35,16 @@ export default {
   text-align: left;
 }
 .avatar {
-  display: inline-block;
   margin-left: left;
   margin-left: 24px;
   vertical-align: top;
 }
-.avatar img {
-  display: inline-block;
+.avatarImg {
   width: 64px;
   height: 64px;
   border-radius: 4px;
 }
 .detail {
-  display: inline-block;
   margin-left: 16px;
   margin-top: 2px;
   font-size: 0;
@@ -106,10 +55,9 @@ export default {
   line-height: 18px;
 }
 .brand {
-  display: inline-block;
   width: 30px;
   height: 18px;
-  background-image: url('./brand@2x.png');
+  /* background-image: url('./brand@2x.png'); */
   background-size: 100% 100%;
   margin-right: 6px;
 }
@@ -128,10 +76,9 @@ export default {
   margin-top: 10px;
 }
 .spt-icon {
-  display: inline-block;
   width: 12px;
   height: 12px;
-  background-image: url('./decrease_2@2x.png');
+  /* background-image: url('./decrease_2@2x.png'); */
   background-size: 100% 100%;
   margin-right: 4px;
 }
@@ -149,12 +96,10 @@ export default {
   font-size: 0;
 }
 .count {
-  display: inline-block;
   font-size: 10px;
   font-weight: 200;
 }
 .icon-keyboard_arrow_right {
-  display: inline-block;
   font-size: 10px;
   margin-left: 2px;
   color: #fff;
@@ -178,10 +123,9 @@ export default {
   vertical-align: top;
 }
 .bulletin-icon {
-  display: inline-block;
   width: 22px;
   height: 12px;
-  background-image: url('./bulletin@2x.png');
+  /* background-image: url('./bulletin@2x.png'); */
   background-size: 100% 100%;
 }
 .bulletin .icon-keyboard_arrow_right {
@@ -286,6 +230,6 @@ export default {
   padding: 0 12px;
   font-size: 14px;
   font-weight: 200;
-  line-height: 24px; 
+  line-height: 24px;
 }
 </style>
