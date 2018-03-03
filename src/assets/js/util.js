@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const stream = weex.requireModule('stream')
 
 export default {
