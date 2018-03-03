@@ -9,7 +9,7 @@
 <script>
 import MHeader from '@/components/header/header.vue'
 import TabBar from '@/components/tab-bar/tab-bar.vue'
-import { get } from '@/assets/js/util'
+import { get, initIconFont } from '@/assets/js/util'
 
 export default {
   components: {
@@ -18,6 +18,7 @@ export default {
   },
   created () {
     this.getSeller()
+    initIconFont()
   },
   data () {
     return {
