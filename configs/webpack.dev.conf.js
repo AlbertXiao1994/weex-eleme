@@ -19,6 +19,18 @@ const utils = require('./utils');
 const helper = require('./helper');
 
 /**
+ * API
+ */
+const express = require('express');
+const bodyParser = require('body-parser')
+const fs =require('fs')
+
+let app = express();
+let apiRouters = express.Router();
+
+app.use('/api', apiRouters)
+
+/**
  * Modify the url that will open on the browser.
  * @param {Array} entry 
  */
@@ -143,7 +155,21 @@ const devWebpackConfig = webpackMerge(commonConfig[0], {
     proxy: config.dev.proxyTable,
     quiet: true, // necessary for FriendlyErrorsPlugin
     openPage: openPage,
-    watchOptions: config.dev.watchOptions
+    watchOptions: config.dev.watchOptions,
+    before (app) {
+      app.get('/api/:apiName', function(req, res) {
+        fs.readFile('./data.json', 'utf8', function (err, data) {
+          if (err) throw err
+          let info = JSON.parse(data)
+          if (data[req.params.apiName]) {
+            res.json(info[req.params.apiName])  
+          }
+          else {
+            res.send('no such api name')
+          }
+        })
+      })
+    }
   }
 });
 
