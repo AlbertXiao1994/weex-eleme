@@ -1,10 +1,32 @@
 <template>
   <div class="header">
-    <div class="header-wrapper">
+    <div class="header-top">
       <!-- 商家头像 -->
       <div class="avatar">
         <image class="avatarImg" :src="msg.avatar"></image>
       </div>
+      <!-- 详细信息 -->
+      <div class="detail">
+        <div class="name">
+          <image class="brand" src="http://wx3.sinaimg.cn/small/a98da548gy1fozp2ro2twj201o010q2p.jpg"></image>
+          <text class="text-big">{{ msg.name }}</text>
+        </div>
+        <div class="description">
+          <text class="text-small">{{ msg.description }}/{{ msg.deliveryTime }}分钟</text>
+        </div>
+        <div class="supports" v-if="msg.supports">
+          <image class="spt-icon" src="http://wx3.sinaimg.cn/small/a98da548gy1fozp2sanvqj200w00wjr5.jpg"></image>
+          <text class="text-small">{{ msg.supports[0].description }}</text>
+        </div>
+      </div>
+    </div>
+    <!-- 其他 -->
+    <div class="supports-count" v-if="msg.supports" @click="showMore">
+      <text class="count">{{ msg.supports.length }}个</text>
+      <text class="iconfont iconfont-keyboard_arrow_right">&#xe77a;</text>
+    </div>
+    <div class="background">
+      <image :src="msg.avatar" style="width: 100%;height: 268px"></image>
     </div>
   </div>
 </template>
@@ -16,26 +38,45 @@ export default {
       type: Object
     }
   },
+  created () {
+    this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
+  },
+  data () {
+    return {
+      seller: {},
+      isShow: false,
+      classMap: []
+    }
+  },
   methods: {
+    showMore () {
+      this.isShow = true
+    },
+    closeMore () {
+      this.isShow = false
+    }
   }
 }
 </script>
 
 <style scoped>
+.iconfont {
+  font-family: iconfont;
+}
 .header {
   position: relative;
   background: rgba(7,17,27,0.5);
   overflow: hidden;
 }
-.header-wrapper {
+.header-top {
   position: relative;
   width: 100%;
   padding-top: 24px;
-  color: rgb(255,255,255);
+  padding-bottom: 18px;
   text-align: left;
+  flex-direction: row;
 }
 .avatar {
-  margin-left: left;
   margin-left: 24px;
   vertical-align: top;
 }
@@ -50,9 +91,13 @@ export default {
   font-size: 0;
 }
 .name {
+  flex-direction: row;
+}
+.text-big {
   font-size: 18px;
   font-weight: bold;
   line-height: 18px;
+  color: #fff;
 }
 .brand {
   width: 30px;
@@ -61,19 +106,25 @@ export default {
   background-size: 100% 100%;
   margin-right: 6px;
 }
-.description,.supports {
-  color: rgb(255,255,255);
-  font-weight: 200;
-  line-height: 12px;
+.description {
+  flex-direction: row;
+  align-items: center;
 }
 .description {
   position: relative;
-  font-size: 12px;
   margin-top: 8px;
 }
-.supports{
+.text-small {
+  color: rgb(255,255,255);
+  font-weight: 200;
+  font-size: 12px;
+}
+.supports {
+  position: relative;
   font-size: 10px;
   margin-top: 10px;
+  flex-direction: row;
+  align-items: center;
 }
 .spt-icon {
   width: 12px;
@@ -83,25 +134,25 @@ export default {
   margin-right: 4px;
 }
 .supports-count {
-  box-sizing: border-box;
   position: absolute;
   right: 12px;
-  bottom: 46px;
-  box-sizing: border-box;
+  bottom: 23px;
   width: 50px;
   height: 24px;
   padding: 7px 8px;
   border-radius: 12px;
   background-color: rgba(0,0,0,0.2);
   font-size: 0;
+  align-items: center;
 }
 .count {
+  color: #fff;
   font-size: 10px;
   font-weight: 200;
 }
-.icon-keyboard_arrow_right {
+.iconfont-keyboard_arrow_right {
   font-size: 10px;
-  margin-left: 2px;
+  /* margin-left: 2px; */
   color: #fff;
 }
 .bulletin {
@@ -128,12 +179,12 @@ export default {
   /* background-image: url('./bulletin@2x.png'); */
   background-size: 100% 100%;
 }
-.bulletin .icon-keyboard_arrow_right {
+/* .icon-keyboard_arrow_right {
   position: absolute;
   top: 7px;
   right: 12px;
   font-size: 10px;
-}
+} */
 .background {
   position: absolute;
   left: 0;
@@ -143,7 +194,7 @@ export default {
   z-index: -1;
   filter: blur(10px);
 }
-.header .more {
+.more {
   position: fixed;
   left: 0;
   top: 0;
@@ -166,7 +217,7 @@ export default {
   z-index: 200;
   color: #fff;
 }
-.more-main .name {
+.name {
   font-size: 16px;
   line-height: 16px;
   font-weight: 700;
