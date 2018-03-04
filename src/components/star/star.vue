@@ -24,9 +24,9 @@ export default {
   },
   created () {
     this.starTypes = {
-      on: '',
-      half: '',
-      off: ''
+      on: 'http://albert-static.test.upcdn.net/images/star48_on@2x.png',
+      half: 'http://albert-static.test.upcdn.net/images/star48_half@2x.png',
+      off: 'http://albert-static.test.upcdn.net/images/star48_off@2x.png'
     }
   },
   computed: {
@@ -53,13 +53,14 @@ export default {
 
 <style scoped>
 .star {
+  width: 150px;
   font-size: 0;
+  flex-direction: row;
+  justify-content: space-around;
 }
 .star-item {
-  display: inline-block;
   width: 20px;
   height: 19px;
-  margin-right: 12px;
 }
 .star-item:last-child {
   margin-right: 0;
