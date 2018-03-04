@@ -3,14 +3,12 @@
     <image
       :src="getImgUrl(type)"
       class="iconImg"
-      :style="`width: ${size}px;height: ${size}px`"
     >
     </image>
   </div>
 </template>
 
 <script>
-
 export default {
   props: {
     type: {
@@ -53,7 +51,7 @@ export default {
 
 <style scoped>
 .iconImg {
-  width: 16px;
-  height: 16px;
+  width: 32px;
+  height: 32px;
 }
 </style>
