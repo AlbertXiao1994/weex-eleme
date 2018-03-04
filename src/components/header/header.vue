@@ -33,6 +33,33 @@
     <div class="background">
       <image :src="msg.avatar" style="width: 100%;height: 268px"></image>
     </div>
+    <div class="more" v-if="isShow">
+      <div class="more-wrapper">
+        <text class="more-header">{{ msg.name }}</text>
+        <div class="more-main">
+          <div class="title">
+            <div class="title-line"></div>
+            <text class="title-text">优惠信息</text>
+            <div class="title-line"></div>
+          </div>
+          <list class="supports-info" v-if="msg.supports">
+            <cell class="info-item" v-for="(item, index) in msg.supports" :key="index">
+              <!-- <icon :type="item.type"></icon> -->
+              <text class="supports-text">{{ item.description }}</text>
+            </cell>
+          </list>
+          <div class="title">
+            <div class="title-line"></div>
+            <text class="title-text">商家公告</text>
+            <div class="title-line"></div>
+          </div>
+          <text class="bulletin-content">{{ msg.bulletin }}</text>
+        </div>
+        <div class="more-footer">
+          <text class="iconfont iconfont-close" @click="closeMore">&#xea4f;</text>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -195,40 +222,46 @@ export default {
   position: fixed;
   left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
   background: rgba(7,17,27,0.8);
   z-index: 200;
   overflow: auto;
 }
 .more-wrapper {
-  min-height: 100%;
-  width: 100%;
-  z-index: 200;
-}
-.more-main {
   margin-top: 64px;
   padding-bottom: 64px;
   margin-left: 36px;
   margin-right: 36px;
   z-index: 200;
-  color: #fff;
+  flex-direction: column;
+  min-height: 100vh;
 }
-.name {
+.more-header {
   font-size: 16px;
+  color: #fff;
   line-height: 16px;
   font-weight: 700;
   text-align: center;
 }
-.icon-close {
+.more-main {
+  flex: 1;
+  z-index: 200;
+  color: #fff;
+}
+.more-footer {
+  height: 32px;
+}
+.iconfont-close {
   position: relative;
   width: 32px;
   height: 32px;
   font-size: 32px;
   color: rgba(255,255,255,0.5);
-  margin: -64px auto 0 auto;
+  margin-top: -32px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 0;
   clear: both;
-  z-index: 100;
+  z-index: 200;
 }
 .star-wrapper {
   width: 100%;
@@ -236,30 +269,32 @@ export default {
   margin-top: 16px;
 }
 .title {
-  display: flex;
+  flex-direction: row;
   width: 100%;
-  margin: 28px auto 24px auto;
+  margin-top: 28px;
+  margin-right: auto;
+  margin-bottom: 24px;
+  margin-left: auto;
 }
-.title .line {
+.title-line {
   position: relative;
   top: -6px;
   flex: 1;
   border-bottom: 1px solid rgba(255,255,255,0.2);
 }
-.title .text {
+.title-text {
   font-size: 14px;
   color: #fff;
   font-weight: 700;
   line-height: 14px;
   padding: 0 12px;
 }
-.supports-info .info-item {
-  display: block;
+.info-item {
   padding: 0 12px;
   margin-bottom: 12px;
   font-size: 0;
 }
-.supports-info .info-item:last-child {
+.info-item:last-child {
   margin-bottom: 0;
 }
 .info-item .icon {
@@ -267,8 +302,9 @@ export default {
   width: 16px;
   height: 16px;
 }
-.info-item .text {
+.supports-text {
   font-size: 12px;
+  color: #fff;
   line-height: 16px;
   font-weight: 200;
   margin-left: 6px;
@@ -277,6 +313,7 @@ export default {
 .bulletin-content {
   padding: 0 12px;
   font-size: 14px;
+  color: #fff;
   font-weight: 200;
   line-height: 24px;
 }
