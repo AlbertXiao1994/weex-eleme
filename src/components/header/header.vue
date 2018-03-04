@@ -71,6 +71,7 @@
 <script>
 import star from '@/components/star/star.vue'
 import icon from '@/components/icon/icon.vue'
+
 export default {
   components: {
     star,
@@ -276,8 +277,9 @@ export default {
   z-index: 200;
 }
 .star-wrapper {
+  flex-direction: row;
+  justify-content: center;
   width: 100%;
-  text-align: center;
   margin-top: 16px;
 }
 .title {
