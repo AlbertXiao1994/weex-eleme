@@ -35,7 +35,12 @@
     </div>
     <div class="more" v-if="isShow">
       <div class="more-wrapper">
-        <text class="more-header">{{ msg.name }}</text>
+        <div class="more-header">
+          <text class="more-title">{{ msg.name }}</text>
+          <div class="star-wrapper">
+              <star :score="msg.score"></star>
+          </div>
+        </div>
         <div class="more-main">
           <div class="title">
             <div class="title-line"></div>
@@ -44,7 +49,7 @@
           </div>
           <list class="supports-info" v-if="msg.supports">
             <cell class="info-item" v-for="(item, index) in msg.supports" :key="index">
-              <!-- <icon :type="item.type"></icon> -->
+              <icon :type="item.type" :size="iconSize"></icon>
               <text class="supports-text">{{ item.description }}</text>
             </cell>
           </list>
@@ -64,13 +69,20 @@
 </template>
 
 <script>
+import star from '@/components/star/star.vue'
+import icon from '@/components/icon/icon.vue'
 export default {
+  components: {
+    star,
+    icon
+  },
   props: {
     msg: {
       type: Object
     }
   },
   created () {
+    this.iconSize = 16
     this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
   },
   data () {
@@ -235,7 +247,7 @@ export default {
   flex-direction: column;
   min-height: 100vh;
 }
-.more-header {
+.more-title {
   font-size: 16px;
   color: #fff;
   line-height: 16px;
@@ -290,17 +302,14 @@ export default {
   padding: 0 12px;
 }
 .info-item {
+  flex-direction: row;
+  align-items: center;
   padding: 0 12px;
   margin-bottom: 12px;
   font-size: 0;
 }
 .info-item:last-child {
   margin-bottom: 0;
-}
-.info-item .icon {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
 }
 .supports-text {
   font-size: 12px;
