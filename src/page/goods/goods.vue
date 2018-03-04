@@ -7,6 +7,7 @@
           class="menu-item"
           @click="selectOption(index,$event)"
           :key="index"
+          :class="{selected: currentIndex==index}"
         >
           <div class="menu-content">
             <icon v-if="item.type>0" :type="item.type" class="icon"></icon>
@@ -45,27 +46,55 @@
                   <text class="nowPrice">¥{{ food.price }}</text>
                   <text class="oldPrice" v-if="food.oldPrice">¥{{ food.oldPrice }}<div class="oldPriceLine"></div></text>
                 </div>
-                <!-- <cart-control :food="food" @ball-move="_drop" class="cart-control"></cart-control> -->
+                <cart-control :food="food" class="cart-control"></cart-control>
               </div>
             </div>
           </div>
         </cell>
       </list>
     </div>
+    <shop-cart :selectedFood="selectedFood" ref="shopCart"></shop-cart>
   </div>
 </template>
 
 <script>
 import icon from '@/components/icon/icon.vue'
 import { get } from '@/assets/js/util'
+import cartControl from '@/components/cart-control/cart-control.vue'
+import shopCart from '@/components/shop-cart/shop-cart.vue'
 
 export default {
   components: {
-    icon
+    icon,
+    cartControl,
+    shopCart
   },
   props: {
     seller: {
       type: Object
+    }
+  },
+  computed: {
+    currentIndex () {
+      for (let i = 0; i < this.listHeight.length - 1; i++) {
+        let height1 = this.listHeight[i]
+        let height2 = this.listHeight[i + 1]
+        if (this.scrollY + 5 >= height1 && this.scrollY + 5 < height2) {
+          return i
+        }
+      }
+      return 0
+    },
+    selectedFood () {
+      let foods = []
+      this.goods.forEach((good) => {
+        good.foods.forEach((food) => {
+          if (food.count) {
+            foods.push(food)
+          }
+        })
+      })
+      return foods
     }
   },
   data () {
