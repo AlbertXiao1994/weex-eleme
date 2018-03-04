@@ -22,8 +22,9 @@
     </div>
     <!-- 公告 -->
     <div class="bulletin" @click="showMore">
-      <text class="bulletin-icon"></text><text class="bulletin-text">{{ msg.bulletin }}</text>
-      <text class="icon icon-keyboard_arrow_right"></text>
+      <!-- <image class="bulletin-icon" src="http://wx3.sinaimg.cn/mw690/a98da548gy1fozp2s0og6j201800omwx.jpg"></image> -->
+      <text class="bulletin-text" lines="1">{{ msg.bulletin }}</text>
+      <!-- <text class="iconfont iconfont-keyboard_arrow_right">&#xe77a;</text> -->
     </div>
     <!-- 其他 -->
     <div class="supports-count" v-if="msg.supports" @click="showMore">
@@ -76,7 +77,6 @@ export default {
   position: relative;
   width: 100%;
   padding-top: 24px;
-  padding-bottom: 18px;
   text-align: left;
   flex-direction: row;
 }
@@ -90,8 +90,9 @@ export default {
   border-radius: 4px;
 }
 .detail {
+  flex-direction: column;
+  justify-content: space-between;
   margin-left: 16px;
-  margin-top: 2px;
   font-size: 0;
 }
 .name {
@@ -114,10 +115,6 @@ export default {
   flex-direction: row;
   align-items: center;
 }
-.description {
-  position: relative;
-  margin-top: 8px;
-}
 .text-small {
   color: rgb(255,255,255);
   font-weight: 200;
@@ -126,7 +123,6 @@ export default {
 .supports {
   position: relative;
   font-size: 10px;
-  margin-top: 10px;
   flex-direction: row;
   align-items: center;
 }
@@ -159,28 +155,29 @@ export default {
   color: #fff;
 }
 .bulletin {
-  position: relative;
+  /* position: relative; */
+  width: 100%;
   margin-top: 18px;
-  height: 28px;
-  padding: 0 22px 0 12px;
-  line-height: 28px;
-  white-space: nowrap;
+  /* height: 28px; */
+  padding-top: 7px;
+  padding-right: 22px;
+  padding-bottom: 7px;
+  padding-left: 12px;
+  /* white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  text-overflow: ellipsis; */
   background-color: rgba(7,17,27,0.2);
 }
 .bulletin-text {
+  lines: 1;
   font-size: 10px;
   font-weight: 200;
-  margin-left: 4px;
-  margin-top: 8px;
-  vertical-align: top;
+  /* margin-left: 4px; */
+  color: #fff;
 }
 .bulletin-icon {
   width: 22px;
   height: 12px;
-  /* background-image: url('./bulletin@2x.png'); */
-  background-size: 100% 100%;
 }
 .background {
   position: absolute;
