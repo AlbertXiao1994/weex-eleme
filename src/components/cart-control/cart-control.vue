@@ -1,10 +1,8 @@
 <template>
   <div class="cartControl">
-    <transition name="move">
-      <div class="cart-des icon-remove_circle_outline" @click.stop.prevent="desCount" v-if="food.count>0"></div>
-    </transition>
+    <text class="iconfont cart-des iconfont-remove_circle_outline" @click.stop.prevent="desCount" v-if="food.count>0">&#xe6bd;</text>
     <text class="cart-count" v-if="food.count>0">{{ food.count }}</text>
-    <div class="cart-add icon-add_circle" @click.stop.prevent="addCount"></div>
+    <text class="iconfont cart-add iconfont-add_circle" @click.stop.prevent="addCount">&#xe674;</text>
   </div>
 </template>
 
@@ -18,9 +16,6 @@ export default {
   },
   methods: {
     addCount (event) {
-      if (!event._constructed) {
-        return
-      }
       if (!this.food.count) {
         Vue.set(this.food, 'count', 1)
       } else {
@@ -29,9 +24,6 @@ export default {
       this.$emit('ball-move', event.target)
     },
     desCount (event) {
-      if (!event._constructed) {
-        return
-      }
       if (this.food.count) {
         this.food.count--
       }
@@ -43,14 +35,20 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .cartControl {
-  display: inline-block;
+  flex-direction: row;
+  align-items: center;
   font-size: 0;
 }
+.iconfont {
+  font-family: iconfont;
+}
 .cart-des,.cart-add {
-  display: inline-block;
-  padding: 6px;
-  font-size: 24px;
-  line-height: 24px;
+  padding-top: 6px;
+  padding-right: 6px;
+  padding-bottom: 6px;
+  padding-left: 6px;
+  font-size: 48px;
+  line-height: 48px;
   color: rgb(0,160,220);
 }
 .move-enter-active,.move-leave-active {
@@ -63,7 +61,6 @@ export default {
   opacity: 0;
 }
 .cart-count {
-  display: inline-block;
   width: 12px;
   font-size: 10px;
   line-height: 36px;
