@@ -22,9 +22,9 @@
     </div>
     <!-- 公告 -->
     <div class="bulletin" @click="showMore">
-      <!-- <image class="bulletin-icon" src="http://wx3.sinaimg.cn/mw690/a98da548gy1fozp2s0og6j201800omwx.jpg"></image> -->
-      <text class="bulletin-text" lines="1">{{ msg.bulletin }}</text>
-      <!-- <text class="iconfont iconfont-keyboard_arrow_right">&#xe77a;</text> -->
+      <image class="bulletin-icon" src="http://wx3.sinaimg.cn/mw690/a98da548gy1fozp2s0og6j201800omwx.jpg"></image>
+      <text class="bulletin-text">{{ msg.bulletin }}</text>
+      <text class="iconfont iconfont-keyboard_arrow_right bulletin-iconfont">&#xe77a;</text>
     </div>
     <!-- 其他 -->
     <div class="supports-count" v-if="msg.supports" @click="showMore">
@@ -155,29 +155,32 @@ export default {
   color: #fff;
 }
 .bulletin {
-  /* position: relative; */
-  width: 100%;
+  position: relative;
   margin-top: 18px;
-  /* height: 28px; */
   padding-top: 7px;
   padding-right: 22px;
   padding-bottom: 7px;
   padding-left: 12px;
-  /* white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis; */
   background-color: rgba(7,17,27,0.2);
 }
 .bulletin-text {
-  lines: 1;
   font-size: 10px;
   font-weight: 200;
-  /* margin-left: 4px; */
+  margin-left: 26px;
   color: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
 }
 .bulletin-icon {
+  position: absolute;
   width: 22px;
   height: 12px;
+}
+.bulletin-iconfont {
+  position: absolute;
+  right: 12px;
+  bottom: 7px;
 }
 .background {
   position: absolute;
