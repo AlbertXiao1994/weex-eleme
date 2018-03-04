@@ -16,9 +16,11 @@ export default {
     MHeader,
     TabBar
   },
+  beforeCreate () {
+    initIconFont()
+  },
   created () {
     this.getSeller()
-    initIconFont()
   },
   data () {
     return {
