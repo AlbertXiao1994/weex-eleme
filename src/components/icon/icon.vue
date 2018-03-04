@@ -1,6 +1,11 @@
 <template>
   <div>
-    <image :src="getImgUrl(type)" class="iconImg" :style="`width: ${size}px;height: ${size}px`"></image>
+    <image
+      :src="getImgUrl(type)"
+      class="iconImg"
+      :style="`width: ${size}px;height: ${size}px`"
+    >
+    </image>
   </div>
 </template>
 
