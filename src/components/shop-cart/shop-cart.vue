@@ -2,18 +2,18 @@
   <div class="shopCart">
     <div class="left-wrapper" @click="toggleShow">
       <div class="logo-wrapper">
-        <div class="logo" :class="{active: totalPrice}">
-          <text class="iconfont iconfont-shopping_cart" :class="{active: totalPrice}">&#xe6fa;</text>
+        <div class="logo" :class="[totalPrice?'logoWrapActive':'']">
+          <text class="iconfont iconfont-shopping_cart" :class="[totalPrice?'leftActive':'']">&#xe6fa;</text>
         </div>
         <div class="badge" v-show="totalCount">
           <text class="num">{{ totalCount }}</text>
         </div>
       </div>
-      <text class="price" :class="{active: totalPrice}">¥{{ totalPrice }}</text>
+      <text class="price" :class="[totalPrice?'leftActive':'']">¥{{ totalPrice }}</text>
       <text class="extra-price">另需配送费¥{{ deliveryPrice }}</text>
     </div>
-    <text class="right-wrapper" :class="{enough: totalPrice>=minPrice}">{{ payDes }}</text>
-    <div class="cart-list" v-show="listShow" :class="{fold: listShow}">
+    <text class="right-wrapper" :class="[totalPrice>=minPrice?'enough':'']">{{ payDes }}</text>
+    <div class="cart-list" v-show="listShow" :class="[listShow?'fold':'']">
       <div class="list-header">
         <text class="head-title">购物车</text>
         <text class="head-clear" @click="clearCart">清空</text>
@@ -30,7 +30,7 @@
         </list>
       </div>
     </div>
-    <div class="cart-background" v-show="listShow"></div>
+    <div class="cart-background" v-show="listShow" @click="toggleShow"></div>
   </div>
 </template>
 
@@ -82,17 +82,16 @@ export default {
       }
     },
     listShow () {
-      if (!this.totalCount) {
-        this.fold = true
+      if (!this.totalCount || !this.fold) {
         return false
       }
-      let show = !this.fold
+      let show = this.fold
       return show
     }
   },
   data () {
     return {
-      fold: true
+      fold: false
     }
   },
   methods: {
@@ -117,98 +116,98 @@ export default {
   font-family: iconfont;
 }
 .shopCart {
-  display: flex;
+  flex-direction: row;
   position: fixed;
   left: 0;
   bottom: 0;
-  width: 100%;
-  height: 48px;
+  width: 750px;
+  height: 96px;
   z-index: 50;
 }
-.shopCart .left-wrapper {
+.left-wrapper {
   flex: 1;
   background: #141c27;
   font-size: 0;
   z-index: 50;
+  flex-direction: row;
+  align-items: center;
 }
-.shopCart .right-wrapper {
+.right-wrapper {
   flex: 0 0 105px;
   width: 105px;
   background: #2b343b;
   z-index: 50;
+  font-size: 24px;
+  color: #808589;
+  font-weight: 700;
+  line-height: 96px;
+  text-align: center;
 }
 .logo-wrapper {
-  display: inline-block;
   position: relative;
   top: -10px;
   margin-left: 12px;
-  padding: 6px;
+  padding-top: 12px;
+  padding-right: 12px;
+  padding-bottom: 12px;
+  padding-left: 12px;
   background: #141c27;
-  width: 58px;
-  height: 58px;
-  box-sizing: border-box;
+  width: 116px;
+  height: 116px;
   border-radius: 50%;
 }
-.logo-wrapper .logo {
-  width: 100%;
-  height: 100%;
+.logo {
+  justify-content: center;
+  align-items: center;
+  width: 92px;
+  height: 92px;
   background: #2b343d;
   border-radius: 50%;
   text-align: center;
 }
 .iconfont-shopping_cart {
   color: #808589;
-  font-size: 24px;
-  line-height: 44px;
+  font-size: 48px;
 }
-.logo-wrapper .badge {
+.badge {
   position: absolute;
   top: 0;
   right: 0;
-  width: 24px;
-  height: 16px;
-  border-radius: 6px;
+  width: 48px;
+  height: 32px;
+  border-radius: 12px;
   background: rgb(240,20,20);
-  text-align: center;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
 }
-.badge .num {
-  font-size: 9px;
+.num {
+  font-size: 12px;
   font-weight: 700;
   color: #fff;
-  line-height: 16px;
+  line-height: 32px;
+  text-align: center;
 }
-.logo-wrapper .active {
+.logoWrapActive {
   background: rgb(0,160,220);
 }
-.left-wrapper .price,.extra-price {
-  display: inline-block;
+.price,.extra-price {
   color: #808589;
-  font-size: 16px;
-  line-height: 24px;
-  margin-top: 12px;
-  vertical-align: top;
+  font-size: 32px;
+  line-height: 32px;
 }
-.left-wrapper .price {
+.price {
   font-weight: 700;
   margin-left: 12px;
   padding-right: 12px;
-  border-right: 1px solid rgba(255,255,255,0.1);
+  border-right-width: 1px;
+  border-right-style: solid;
+  border-right-color: rgba(255,255,255,0.1);
 }
-.left-wrapper .extra-price {
+.extra-price {
   margin-left: 12px;
 }
-.left-wrapper .active {
+.leftActive {
   color: #fff;
 }
-.right-wrapper {
-  font-size: 12px;
-  color: #808589;
-  font-weight: 700;
-  line-height: 48px;
-  text-align: center;
-}
-.shopCart .enough {
+.enough {
   color: #fff;
   background: #11B33C;
 }
@@ -239,82 +238,79 @@ export default {
   overflow: hidden;
   z-index: 40;
 }
-.shopCart .fold {
+.fold {
   transform: translate3d(0,-100%,0);
 }
 .list-header {
   background: #f3f5f7;
-  height: 40px;
-  padding: 0 18px;
-  overflow: hidden;
-  border-bottom: 2px solid rgba(7,17,27,0.1);
+  height: 80px;
+  padding-top: 0;
+  padding-right: 18px;
+  padding-bottom: 0;
+  padding-left: 18px;
+  overflow: auto;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: rgba(7,17,27,0.1);
   z-index: 40;
+  flex-direction: row;
+  justify-content: space-between;
 }
 .head-title {
-  font-size: 14px;
+  font-size: 28px;
   font-weight: 200;
-  line-height: 40px;
+  line-height: 80px;
   color: rgb(7,17,27);
 }
 .head-clear {
-  display: inline-block;
   text-align: right;
-  font-size: 12px;
-  line-height: 40px;
+  font-size: 24px;
+  line-height: 80px;
   color: rgb(0,160,200);
 }
-.fold-enter-active,.fold-leave-active {
-  transition: all 0.5s linear;
-}
-.fold-enter,.fold-leave-to {
-  transform: translate3d(0,0,0);
-}
-.fold-leave {
+.fold {
   transform: translate3d(0,-100%,0);
-}
-.fold-enter-to {
-  transform: translate3d(0,-100%,0);
-}
-.fade-enter-active,.fade-leave-active {
-  transition: all 0.5s linear;
-  opacity: 1;
-}
-.fade-enter,.fade-leave-to {
-  opacity: 0;
 }
 .list-content {
   background: #fff;
-  padding: 0 18px;
-  max-height: 218px;
-  overflow: hidden;
+  padding-top: 0;
+  padding-right: 18px;
+  padding-bottom: 0;
+  padding-left: 18px;
+  max-height: 436px;
+  overflow: auto;
   z-index: 40;
 }
 .list-item {
   position: relative;
-  height: 48px;
-  line-height: 48px;
-  border-bottom: 1px solid rgba(7,17,27,0.1);
-  box-sizing: border-box;
+  height: 96px;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: rgba(7,17,27,0.1);
+  flex-direction: row;
+  align-items: center;
 }
 .food-name {
-  float: left;
-  font-size: 14px;
+  font-size: 28px;
   font-weight: 700;
   color: rgb(7,17,27);
+  line-height: 96px;
 }
 .food-price {
-  display: inline-block;
-  margin: 0 12px 0 18px;
-  font-size: 14px;
+  margin-top: 0;
+  margin-right: 24px;
+  margin-bottom: 0;
+  margin-left: 36px;
+  font-size: 28px;
+  line-height: 96px;
   font-weight: 700;
   color: rgb(240,20,20);
   position: absolute;
-  right: 80px;
+  right: 160px;
 }
 .cartControl-wrapper{
-  display: inline-block;
   font-size: 24px;
-  line-height: 48px;
+  line-height: 96px;
   position: absolute;
   right: 0;
 }
