@@ -2,7 +2,9 @@
   <div class="wrapper">
     <m-header :msg="seller"></m-header>
     <tab-bar></tab-bar>
-    <router-view/>
+    <keep-alive>
+      <router-view/>
+    </keep-alive>
   </div>
 </template>
 
