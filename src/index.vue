@@ -3,7 +3,7 @@
     <m-header :msg="seller"></m-header>
     <tab-bar></tab-bar>
     <keep-alive>
-      <router-view/>
+      <router-view :seller="seller"/>
     </keep-alive>
   </div>
 </template>
