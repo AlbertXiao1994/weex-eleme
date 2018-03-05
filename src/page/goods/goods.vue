@@ -7,7 +7,7 @@
           class="menu-item"
           @click="selectOption(index,$event)"
           :key="index"
-          :class="{selected: currentIndex==index}"
+          :class="[currentIndex==index?'selected':'']"
         >
           <div class="menu-content">
             <icon v-if="item.type>0" :type="item.type" class="icon"></icon>
