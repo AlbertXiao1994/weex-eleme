@@ -67,8 +67,10 @@ export default {
   },
   props: {
     food: {
-      // type: Object,
-      default: {}
+      type: Object,
+      default: function () {
+        return {}
+      }
     }
   },
   data () {
