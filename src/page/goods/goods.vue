@@ -1,59 +1,55 @@
 <template>
   <div class="goods">
-    <div class="menu-wrapper" ref="menuWrapper">
-      <list class="menu">
-        <cell
-          v-for="(item,index) in goods"
-          class="menu-item"
-          @click="selectOption(index,$event)"
-          :key="index"
-          :class="[currentIndex==index?'selected':'']"
-        >
-          <div class="menu-content">
-            <icon v-if="item.type>0" :type="item.type" class="icon"></icon>
-            <text class="menu-text">{{ item.name }}</text>
-          </div>
-          <div class="line"></div>
-        </cell>
-      </list>
-    </div>
-    <div class="goods-wrapper" ref="goodsWrapper">
-      <list class="list">
-        <cell
-          v-for="(item,index) in goods"
-          class="food-list food-list-hook"
-          :key="index"
-          :ref="'item'+index"
-        >
-          <text class="header">{{ item.name }}</text>
-          <div class="food-content">
-            <div
-              v-for="(food,id) in item.foods"
-              class="food-item"
-              @click.stop.prevent="seeDetail(food,$event)"
-              :key="id"
-            >
-              <div class="food-item-icon">
-                <image :src="food.icon" style="width: 114px;height: 114px"></image>
+    <list class="menu-wrapper">
+      <cell
+        v-for="(item,index) in goods"
+        class="menu-item"
+        @click="selectOption(index,$event)"
+        :key="index"
+        :class="[currentIndex==index?'selected':'']"
+      >
+        <div class="menu-content">
+          <icon v-if="item.type>0" :type="item.type" class="icon"></icon>
+          <text class="menu-text">{{ item.name }}</text>
+        </div>
+        <div class="line"></div>
+      </cell>
+    </list>
+    <list class="goods-wrapper">
+      <cell
+        v-for="(item,index) in goods"
+        class="food-list food-list-hook"
+        :key="index"
+        :ref="'item'+index"
+      >
+        <text class="header">{{ item.name }}</text>
+        <div class="food-content">
+          <div
+            v-for="(food,id) in item.foods"
+            class="food-item"
+            @click.stop.prevent="seeDetail(food,$event)"
+            :key="id"
+          >
+            <div class="food-item-icon">
+              <image :src="food.icon" style="width: 114px;height: 114px"></image>
+            </div>
+            <div class="food-item-content">
+              <text class="food-name">{{ food.name }}</text>
+              <text class="food-description" v-show="food.description">{{ food.description }}</text>
+              <div class=extra>
+                <text class="food-sellCount">月售{{ food.sellCount }}份</text>
+                <text class="food-rating">好评率{{ food.rating }}%</text>
               </div>
-              <div class="food-item-content">
-                <text class="food-name">{{ food.name }}</text>
-                <text class="food-description" v-show="food.description">{{ food.description }}</text>
-                <div class=extra>
-                  <text class="food-sellCount">月售{{ food.sellCount }}份</text>
-                  <text class="food-rating">好评率{{ food.rating }}%</text>
-                </div>
-                <div class="food-price">
-                  <text class="nowPrice">¥{{ food.price }}</text>
-                  <text class="oldPrice" v-if="food.oldPrice">¥{{ food.oldPrice }}<div class="oldPriceLine"></div></text>
-                </div>
-                <cart-control :food="food" class="cart-control"></cart-control>
+              <div class="food-price">
+                <text class="nowPrice">¥{{ food.price }}</text>
+                <text class="oldPrice" v-if="food.oldPrice">¥{{ food.oldPrice }}<div class="oldPriceLine"></div></text>
               </div>
+              <cart-control :food="food" class="cart-control"></cart-control>
             </div>
           </div>
-        </cell>
-      </list>
-    </div>
+        </div>
+      </cell>
+    </list>
     <shop-cart :selectedFood="selectedFood" ref="shopCart"></shop-cart>
     <foodDetail :food="selectSinfood" ref="foodCpt"></foodDetail>
   </div>
@@ -81,16 +77,6 @@ export default {
     }
   },
   computed: {
-    currentIndex () {
-      for (let i = 0; i < this.listHeight.length - 1; i++) {
-        let height1 = this.listHeight[i]
-        let height2 = this.listHeight[i + 1]
-        if (this.scrollY + 5 >= height1 && this.scrollY + 5 < height2) {
-          return i
-        }
-      }
-      return 0
-    },
     selectedFood () {
       let foods = []
       this.goods.forEach((good) => {
@@ -108,7 +94,9 @@ export default {
       goods: [],
       scrollY: 0,
       listHeight: [],
-      selectSinfood: {}
+      selectSinfood: {},
+      currentIndex: 0,
+      rows: []
     }
   },
   created () {
@@ -131,6 +119,7 @@ export default {
     selectOption (index, e) {
       const el = this.$refs[`item${index}`][0]
       dom.scrollToElement(el, {})
+      this.currentIndex = index
     }
   }
 }
@@ -147,9 +136,7 @@ export default {
 .menu-wrapper {
   flex: 0 0 80px;
   width: 80px;
-  height: auto;
   z-index: 1;
-  overflow: auto;
 }
 .menu-item {
   justify-content: center;
@@ -187,8 +174,7 @@ export default {
 }
 .goods-wrapper {
   flex: 1;
-  overflow: auto;
-  z-index: 1;
+  /* z-index: 1; */
 }
 .header {
   width: 100%;
