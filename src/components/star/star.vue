@@ -53,7 +53,7 @@ export default {
 
 <style scoped>
 .star {
-  width: 150px;
+  width: 120px;
   font-size: 0;
   flex-direction: row;
   justify-content: space-around;
