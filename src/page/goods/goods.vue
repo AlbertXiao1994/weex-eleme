@@ -54,6 +54,7 @@
       </list>
     </div>
     <shop-cart :selectedFood="selectedFood" ref="shopCart"></shop-cart>
+    <foodDetail :food="selectSinfood" ref="foodCpt"></foodDetail>
   </div>
 </template>
 
@@ -62,12 +63,14 @@ import icon from '@/components/icon/icon.vue'
 import { get } from '@/assets/js/util'
 import cartControl from '@/components/cart-control/cart-control.vue'
 import shopCart from '@/components/shop-cart/shop-cart.vue'
+import foodDetail from '@/components/food/food.vue'
 
 export default {
   components: {
     icon,
     cartControl,
-    shopCart
+    shopCart,
+    foodDetail
   },
   props: {
     seller: {
@@ -117,6 +120,10 @@ export default {
           console.log('request failed')
         }
       })
+    },
+    seeDetail (food, event) {
+      this.selectSinfood = food
+      this.$refs.foodCpt.showFood()
     }
   }
 }
