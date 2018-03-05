@@ -23,6 +23,7 @@
           v-for="(item,index) in goods"
           class="food-list food-list-hook"
           :key="index"
+          :ref="'item'+index"
         >
           <text class="header">{{ item.name }}</text>
           <div class="food-content">
@@ -64,6 +65,8 @@ import { get } from '@/assets/js/util'
 import cartControl from '@/components/cart-control/cart-control.vue'
 import shopCart from '@/components/shop-cart/shop-cart.vue'
 import foodDetail from '@/components/food/food.vue'
+/* eslint-disable no-undef */
+const dom = weex.requireModule('dom')
 
 export default {
   components: {
@@ -124,6 +127,10 @@ export default {
     seeDetail (food, event) {
       this.selectSinfood = food
       this.$refs.foodCpt.showFood()
+    },
+    selectOption (index, e) {
+      const el = this.$refs[`item${index}`][0]
+      dom.scrollToElement(el, {})
     }
   }
 }
